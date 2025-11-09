@@ -36,7 +36,9 @@ LM/
 │   └── Cargo.toml
 ├── scripts/
 │   ├── generate_data.py        # Generate and save test data
-│   └── compare_results.py     # Summary comparison script
+│   ├── compare_results.py     # Summary comparison script
+│   └── visualize_results.py   # Generate performance visualizations
+├── visualizations/             # Generated visualization charts (PNG)
 └── README.md
 ```
 
@@ -173,6 +175,46 @@ Each implementation measures:
 - **Iterations**: Number of iterations to convergence
 - **Final Error**: Sum of squared residuals
 - **Final Parameters**: Optimized parameter values
+
+## Visualizations
+
+After running all implementations, you can generate comprehensive visualizations comparing the performance metrics:
+
+```bash
+python scripts/visualize_results.py
+```
+
+This creates the following visualizations in the `visualizations/` directory:
+
+### Execution Time Comparison
+
+![Execution Time Comparison](visualizations/execution_time_comparison.png)
+
+Compares the execution time across all implementations using a logarithmic scale to accommodate the wide range of performance differences.
+
+### Memory Usage Comparison
+
+![Memory Usage Comparison](visualizations/memory_usage_comparison.png)
+
+Shows the peak memory consumption for each implementation, highlighting the memory overhead of different language runtimes.
+
+### Combined Comparison
+
+![Combined Comparison](visualizations/combined_comparison.png)
+
+Side-by-side comparison of execution time, memory usage, and final error (convergence quality) across all implementations.
+
+### Performance Radar Chart
+
+![Performance Radar Chart](visualizations/performance_radar.png)
+
+Normalized performance metrics displayed on a radar chart, showing the relative strengths of each implementation.
+
+### Summary Table
+
+![Summary Table](visualizations/summary_table.png)
+
+Comprehensive table showing all key metrics for quick reference and comparison.
 
 ## Notes
 
