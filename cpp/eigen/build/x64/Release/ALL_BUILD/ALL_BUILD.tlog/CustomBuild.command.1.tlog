@@ -1,0 +1,10 @@
+^C:\USERS\PRAAJ\DOCUMENTS\CODE\LM\CPP\EIGEN\CMAKELISTS.TXT
+setlocal
+"C:\Program Files (x86)\cpeditor\mingw64\bin\cmake.exe" -SC:/Users/praaj/Documents/code/LM/cpp/eigen -BC:/Users/praaj/Documents/code/LM/cpp/eigen/build --check-stamp-file C:/Users/praaj/Documents/code/LM/cpp/eigen/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

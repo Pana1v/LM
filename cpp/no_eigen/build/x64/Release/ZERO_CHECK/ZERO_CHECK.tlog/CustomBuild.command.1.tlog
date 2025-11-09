@@ -1,0 +1,10 @@
+^C:\USERS\PRAAJ\DOCUMENTS\CODE\LM\CPP\NO_EIGEN\BUILD\CMAKEFILES\4D6CC037C18F593C952E4EC2A25F30C3\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files (x86)\cpeditor\mingw64\bin\cmake.exe" -SC:/Users/praaj/Documents/code/LM/cpp/no_eigen -BC:/Users/praaj/Documents/code/LM/cpp/no_eigen/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/praaj/Documents/code/LM/cpp/no_eigen/build/LevenbergMarquardtNoEigen.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

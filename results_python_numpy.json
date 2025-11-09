@@ -1,0 +1,14 @@
+{
+  "execution_time_ms": 243.17859999973734,
+  "peak_memory_kb": 37.55078125,
+  "iterations": 1000,
+  "final_error": 1.2090819595570914,
+  "initial_params": [
+    0.5,
+    1.0
+  ],
+  "final_params": [
+    0.3981248183300332,
+    0.9121467428795255
+  ]
+}
