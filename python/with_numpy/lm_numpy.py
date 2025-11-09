@@ -6,10 +6,11 @@ Levenberg-Marquardt algorithm implementation using NumPy.
 import numpy as np
 import json
 import time
-import tracemalloc
 import csv
 import sys
 import os
+import psutil
+import threading
 
 # Add parent directory to path to import data generator
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../scripts'))
@@ -100,8 +101,22 @@ def benchmark():
     epsilon = 0.000001
     lambda_init = 0.01
     
-    # Start memory tracking
-    tracemalloc.start()
+    # Memory tracking
+    process = psutil.Process(os.getpid())
+    peak_memory_kb = [0.0]  # Use list to allow modification in nested function
+    
+    def track_memory():
+        """Track peak memory during execution."""
+        while not stop_tracking[0]:
+            current_memory = process.memory_info().rss / 1024.0  # KB
+            if current_memory > peak_memory_kb[0]:
+                peak_memory_kb[0] = current_memory
+            time.sleep(0.001)  # Sample every 1ms
+    
+    stop_tracking = [False]
+    memory_tracker = threading.Thread(target=track_memory, daemon=True)
+    memory_tracker.start()
+    
     start_time = time.perf_counter()
     
     # Run algorithm
@@ -110,16 +125,20 @@ def benchmark():
     )
     
     end_time = time.perf_counter()
-    current, peak = tracemalloc.get_traced_memory()
-    tracemalloc.stop()
+    stop_tracking[0] = True
+    memory_tracker.join(timeout=0.1)
+    
+    # Final check
+    final_memory = process.memory_info().rss / 1024.0
+    if final_memory > peak_memory_kb[0]:
+        peak_memory_kb[0] = final_memory
     
     execution_time_ms = (end_time - start_time) * 1000.0
-    peak_memory_kb = peak / 1024.0
     
     # Prepare results
     results = {
         "execution_time_ms": execution_time_ms,
-        "peak_memory_kb": peak_memory_kb,
+        "peak_memory_kb": peak_memory_kb[0],
         "iterations": iterations,
         "final_error": float(final_error),
         "initial_params": initial_params.tolist(),
@@ -132,7 +151,7 @@ def benchmark():
     print(f"Final parameters: {final_params}")
     print(f"Iterations: {iterations}")
     print(f"Execution time: {execution_time_ms:.4f} ms")
-    print(f"Peak memory: {peak_memory_kb:.2f} KB")
+    print(f"Peak memory: {peak_memory_kb[0]:.2f} KB")
     print(f"Final error: {final_error:.10f}")
     
     # Save to JSON

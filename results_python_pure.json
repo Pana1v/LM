@@ -1,6 +1,6 @@
 {
-  "execution_time_ms": 1860.678499999267,
-  "peak_memory_kb": 32.7421875,
+  "execution_time_ms": 250.07349999941653,
+  "peak_memory_kb": 40240.0,
   "iterations": 1000,
   "final_error": 1.2090819595570916,
   "initial_params": [
